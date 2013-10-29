@@ -66,7 +66,7 @@ module Guard
     # @param [Array<String>] paths the changed paths and files
     # @raise [:task_has_failed] when stop has failed
     #
-    def run_on_change(paths)
+    def run_on_changes(paths)
       changed_files, success = Runner.run(Inspector.clean(paths), watchers, options)
       notify changed_files
 
@@ -95,7 +95,7 @@ module Guard
     def notify(changed_files)
       ::Guard.guards.each do |guard|
         paths = Watcher.match_files(guard, changed_files)
-        guard.run_on_change paths unless paths.empty?
+        guard.run_on_changes paths unless paths.empty?
       end
     end
 
