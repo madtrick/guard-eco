@@ -5,7 +5,7 @@ require 'guard/watcher'
 module Guard
 
   # The Eco guard that gets notifications about the following
-  # Guard events: `start`, `stop`, `reload`, `run_all` and `run_on_change`.
+  # Guard events: `start`, `stop`, `reload`, `run_all` and `run_on_changes`.
   #
   class Eco < Guard
 
@@ -58,7 +58,7 @@ module Guard
     # @raise [:task_has_failed] when stop has failed
     #
     def run_all
-      run_on_change(Watcher.match_files(self, Dir.glob(File.join('**', '*.eco'))))
+      run_on_changes(Watcher.match_files(self, Dir.glob(File.join('**', '*.eco'))))
     end
 
     # Gets called when watched paths and files have changes.
@@ -76,7 +76,7 @@ module Guard
     # Called on file(s) deletions that the Guard watches.
     #
     # @param [Array<String>] paths the deleted files or paths
-    # @raise [:task_has_failed] when run_on_change has failed
+    # @raise [:task_has_failed] when run_on_changes has failed
     #
     def run_on_deletion(paths)
       Inspector.clean(paths).each do |file|
